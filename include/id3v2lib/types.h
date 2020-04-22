@@ -33,7 +33,6 @@ typedef struct
 typedef struct
 {
     char* language;
-    char* short_description;
     ID3v2_frame_text_content* text;
 } ID3v2_frame_comment_content;
 
@@ -44,7 +43,7 @@ typedef struct
     char picture_type;
     char* description;
     int picture_size;
-    char* data;
+    size_t offset;
 } ID3v2_frame_apic_content;
 
 typedef struct
@@ -52,7 +51,7 @@ typedef struct
     char frame_id[ID3_FRAME_ID];
     int size;
     char flags[ID3_FRAME_FLAGS];
-    char* data;
+    size_t offset; // offset in the original file
 } ID3v2_frame;
 
 typedef struct _ID3v2_frame_list
@@ -65,9 +64,9 @@ typedef struct _ID3v2_frame_list
 
 typedef struct
 {
-    char* raw;
     ID3v2_header* tag_header;
     ID3v2_frame_list* frames;
+    FILE* file;
 } ID3v2_tag;
 
 // Constructor functions

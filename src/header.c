@@ -34,20 +34,14 @@ int _has_id3v2tag(char* raw_header)
     return 0;
 }
 
-ID3v2_header* get_tag_header(const char* file_name)
+ID3v2_header* get_tag_header_with_file(FILE *file)
 {
     char buffer[ID3_HEADER];
-    FILE* file = fopen(file_name, "rb");
-    if(file == NULL)
-    {
-        perror("Error opening file");
-        return NULL;
-    }
-
+    fseek(file, 0, SEEK_SET);
     fread(buffer, ID3_HEADER, 1, file);
-    fclose(file);
     return get_tag_header_with_buffer(buffer, ID3_HEADER);
 }
+
 ID3v2_header* get_tag_header_with_buffer(char *buffer, int length)
 {
     int position = 0;
