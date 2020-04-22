@@ -144,7 +144,7 @@ ID3v2_frame_apic_content* parse_apic_frame_content(FILE *file, ID3v2_frame* fram
             do {
                 fread(buf, 1, 1, file);
                 i += 1;
-            } while (buf[0] && buf[1]);
+            } while (buf[0]);
     }
     fseek(file, seek, SEEK_SET);
     content->description = malloc(i);
